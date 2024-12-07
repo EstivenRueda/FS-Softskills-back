@@ -1,0 +1,4 @@
+-r base.txt
+
+# Python code formatter
+black==24.10.0
