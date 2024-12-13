@@ -1,5 +1,5 @@
 """
-WSGI config for softskills project.
+WSGI config for finishing_school project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "softskills.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "finishing_school.settings")
 
 application = get_wsgi_application()
