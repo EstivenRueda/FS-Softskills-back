@@ -1,0 +1,32 @@
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v2.3.0
+  hooks:
+    - id: check-yaml
+    - id: end-of-file-fixer
+    - id: trailing-whitespace
+    - id: check-json
+    - id: check-toml
+    - id: check-xml
+    - id: check-yaml
+    - id: debug-statements
+    - id: check-builtin-literals
+    - id: check-case-conflict
+    - id: check-docstring-first
+    - id: detect-private-key
+- repo: https://github.com/PyCQA/flake8
+  rev: 6.1.0
+  hooks:
+    - id: flake8
+    - repo: https://github.com/psf/black
+      rev: 22.10.0
+      hooks:
+        - id: black
+          exclude: ^.*\b(migrations)\b.*$
+    - repo: https://github.com/pycqa/isort
+      rev: 5.12.0
+      hooks:
+        - id: isort
+          name: isort (python)
+          exclude: ^.*\b(migrations)\b.*$
+

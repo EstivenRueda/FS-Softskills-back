@@ -2,3 +2,6 @@
 
 # Python code formatter
 black==24.10.0
+
+# Colección de herramientas para el desarrollo de Django
+django-extensions==3.2.3

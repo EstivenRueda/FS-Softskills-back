@@ -1,1 +1,38 @@
+# Framework para el desarrollo web
 Django==5.1.4
+
+# Libreria para crear APIs
+djangorestframework==3.15.2
+
+# Extension para implementar filtros en web app views
+django-filter==24.3
+
+# Django app para manejar server headers requeridos por CORS
+django-cors-headers==4.6.0
+
+# Libreria para obtener la peticion desde el modelo
+django-crum==0.7.9
+
+# Libreria para cargar variables de entorno desde un archivo .env
+django-dotenv==1.4.2
+
+# Libreria para los cambios en los modelos de Django
+django-simple-history==3.7.0
+
+# Plugin de autenticacion para DRF basado en JSON Web Tokens
+djangorestframework-simplejwt==5.3.1
+
+# Estandariza las respuestas de error de DRF
+drf-standardized-errors==0.14.1
+
+# Permite crear/actualizar modelos con relaciones anidadas
+drf-writable-nested==0.7.1
+
+# Documentacion de la API con Swagger
+drf-yasg==1.21.8
+
+# Hooks utiles para el desarrollo de Django
+pre-commit==4.0.1
+
+# Plugin de mypy personalizado para proveer tipos estáticos más precisos e inferencia de tipos para Django.
+django-stubs==5.1.1
