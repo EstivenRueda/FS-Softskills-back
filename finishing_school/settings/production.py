@@ -15,5 +15,5 @@ CORS_ALLOWED_ORIGINS = [
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 STATIC_ROOT = os.getenv("STATIC_ROOT")
-
+STATIC_URL = "/static/"
 MEDIA_ROOT = os.getenv("MEDIA_ROOT")
