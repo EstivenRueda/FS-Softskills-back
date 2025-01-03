@@ -18,6 +18,3 @@ CORS_ALLOWED_ORIGINS = [
 STATIC_ROOT = os.path.normpath(join(os.path.dirname(BASE_DIR), "assets"))
 STATIC_URL = "/static/"
 MEDIA_ROOT = os.getenv("MEDIA_ROOT")
-
-
-finishing_school
