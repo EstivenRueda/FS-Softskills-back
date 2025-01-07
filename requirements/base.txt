@@ -22,6 +22,9 @@ django-simple-history==3.7.0
 # Plugin de autenticacion para DRF basado en JSON Web Tokens
 djangorestframework-simplejwt==5.3.1
 
+# REST API authentication utils
+dj-rest-auth[with_social]==6.0.0
+
 # Estandariza las respuestas de error de DRF
 drf-standardized-errors==0.14.1
 
@@ -34,5 +37,8 @@ drf-yasg==1.21.8
 # Hooks utiles para el desarrollo de Django
 pre-commit==4.0.1
 
-# Plugin de mypy personalizado para proveer tipos estáticos más precisos e inferencia de tipos para Django.
+# Plugin de mypy personalizado para proveer tipos estáticos más precisos e inferencia de tipos para Django
 django-stubs==5.1.1
+
+# Permite que el logging estandar de python tenga salida de datos de log como un objeto json
+python-json-logger==2.0.7

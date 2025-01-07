@@ -16,10 +16,13 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path, re_path, reverse_lazy
+from django.views.generic.base import RedirectView
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
+
+from apps.users.api.v1 import views as user_views
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -35,6 +38,7 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+    path("", RedirectView.as_view(url=reverse_lazy("admin:index"))),
     path("admin/", admin.site.urls),
     path(
         "swagger/",
@@ -42,4 +46,12 @@ urlpatterns = [
         name="schema-swagger-ui",
     ),
     path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
+]
+
+urlpatterns = urlpatterns + [
+    path("api/v1/auth/", include("dj_rest_auth.urls")),
+    re_path(r"^api/v1/auth/accounts/", include("allauth.urls")),
+    path("api/v1/auth/registration/", include("dj_rest_auth.registration.urls")),
+    path("api/v1/auth/google/", user_views.GoogleLogin.as_view(), name="google_login"),
+    path("api/v1/profiles/", include("apps.profiles.urls")),
 ]
