@@ -23,18 +23,11 @@ class ProfileViewSet(BaseModelViewSet):
     ]
 
     @swagger_auto_schema(
-        operation_summary="Update a profile",
-        operation_description="Update a profile with the ID",
+        operation_summary="List all profiles",
+        operation_description="This returns a list of all profile objects",
     )
-    def update(self, request, *args, **kwargs):
-        return super().update(request, *args, **kwargs)
-
-    @swagger_auto_schema(
-        operation_summary="Get a profile",
-        operation_description="This returns a profile object",
-    )
-    def retrieve(self, request, *args, **kwargs):
-        return super().retrieve(request, *args, **kwargs)
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
 
     @swagger_auto_schema(
         operation_summary="Create a profile",
@@ -44,18 +37,18 @@ class ProfileViewSet(BaseModelViewSet):
         return super().create(request, *args, **kwargs)
 
     @swagger_auto_schema(
-        operation_summary="List all profiles",
-        operation_description="This returns a list of all profile objects",
+        operation_summary="Get a profile",
+        operation_description="This returns a profile object",
     )
-    def list(self, request, *args, **kwargs):
-        return super().list(request, *args, **kwargs)
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
 
     @swagger_auto_schema(
-        operation_summary="Delete a profile",
-        operation_description="This returns a deleted profile object",
+        operation_summary="Update a profile",
+        operation_description="Update a profile with the ID",
     )
-    def destroy(self, request, *args, **kwargs):
-        return super().destroy(request, *args, **kwargs)
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
 
     @swagger_auto_schema(
         operation_summary="Partial update a profile",
@@ -63,3 +56,10 @@ class ProfileViewSet(BaseModelViewSet):
     )
     def partial_update(self, request, *args, **kwargs):
         return super().partial_update(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_summary="Delete a profile",
+        operation_description="This returns a deleted profile object",
+    )
+    def destroy(self, request, *args, **kwargs):
+        return super().destroy(request, *args, **kwargs)

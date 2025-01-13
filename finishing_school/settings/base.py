@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",
     "apps.users",
     "apps.profiles",
+    "apps.softskills",
 ]
 
 MIDDLEWARE = [
