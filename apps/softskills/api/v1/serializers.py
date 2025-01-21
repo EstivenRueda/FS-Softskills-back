@@ -5,6 +5,8 @@ from apps.softskills import models
 
 
 class SoftskillSerializer(core_serializers.BaseModelSerializer):
+    slug = serializers.CharField(required=False)
+
     class Meta:
         model = models.Softskill
         fields = (
