@@ -19,7 +19,7 @@ class SoftskillViewSet(BaseModelViewSet):
     queryset = serializers.SoftskillSerializer.Meta.model.objects.all()
     serializer_class = serializers.SoftskillSerializer
     filter_backends = [DjangoFilterBackend, drf_filters.SearchFilter]
-    filter_class = filters.SoftskillFilter
+    filterset_class = filters.SoftskillFilter
     search_fields = ["name"]
 
     @swagger_auto_schema(
@@ -73,7 +73,7 @@ class QuestionViewSet(BaseModelViewSet):
     queryset = serializers.QuestionSerializer.Meta.model.objects.all()
     serializer_class = serializers.QuestionSerializer
     filter_backends = [DjangoFilterBackend, drf_filters.SearchFilter]
-    filter_class = filters.QuestionFilter
+    filterset_class = filters.QuestionFilter
     search_fields = ["description"]
 
     @swagger_auto_schema(
@@ -149,7 +149,7 @@ class OptionViewSet(BaseModelViewSet):
     queryset = serializers.OptionSerializer.Meta.model.objects.all()
     serializer_class = serializers.OptionSerializer
     filter_backends = [DjangoFilterBackend]
-    filter_class = filters.OptionFilter
+    filterset_class = filters.OptionFilter
 
     @swagger_auto_schema(
         operation_summary="List all options",
@@ -202,7 +202,7 @@ class QuestionnaireViewSet(BaseModelViewSet):
     queryset = serializers.QuestionnaireSerializer.Meta.model.objects.all()
     serializer_class = serializers.QuestionnaireSerializer
     filter_backends = [DjangoFilterBackend]
-    filter_class = filters.QuestionnaireFilter
+    filterset_class = filters.QuestionnaireFilter
 
     @swagger_auto_schema(
         operation_summary="List all questionnaires",
@@ -255,7 +255,7 @@ class AnswerViewSet(BaseModelViewSet):
     queryset = serializers.AnswerSerializer.Meta.model.objects.all()
     serializer_class = serializers.AnswerSerializer
     filter_backends = [DjangoFilterBackend]
-    filter_class = filters.AnswerFilter
+    filterset_class = filters.AnswerFilter
 
     @swagger_auto_schema(
         operation_summary="List all answers",
@@ -308,7 +308,7 @@ class SoftskillTrainingViewSet(BaseModelViewSet):
     queryset = serializers.SoftskillTrainingSerializer.Meta.model.objects.all()
     serializer_class = serializers.SoftskillTrainingSerializer
     filter_backends = [DjangoFilterBackend]
-    filter_class = filters.SoftskillTrainingFilter
+    filterset_class = filters.SoftskillTrainingFilter
 
     @swagger_auto_schema(
         operation_summary="List all softskill trainings",
