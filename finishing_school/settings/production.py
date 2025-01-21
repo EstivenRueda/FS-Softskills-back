@@ -13,6 +13,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]
 
+CORS_ALLOWED_ORIGINS += os.environ.get("CORS_ALLOWED_ORIGINS", "").split(" ")
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 STATIC_ROOT = os.path.normpath(join(os.path.dirname(BASE_DIR), "assets"))
