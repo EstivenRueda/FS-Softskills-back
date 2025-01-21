@@ -27,7 +27,7 @@ class Profile(
 
     display_name = models.CharField(
         verbose_name="display_name",
-        max_length=30,
+        max_length=100,
     )
     user = models.OneToOneField(
         User,
