@@ -2,8 +2,8 @@ from django.db import models
 
 
 class LikertOptions(models.TextChoices):
-    STRONGLY_DISAGREE = "STRONGLY_DISAGREE", "STRONGLY DISAGREE"
-    DISAGREE = "DISAGREE", "DISAGREE"
-    NEUTRAL = "NEUTRAL", "NEUTRAL"
-    AGREE = "AGREE", "AGREE"
-    STRONGLY_AGREE = "STRONGLY_AGREE", "STRONGLY AGREE"
+    STRONGLY_DISAGREE = "STRONGLY_DISAGREE", "Totalmente en desacuerdo"
+    DISAGREE = "DISAGREE", "En desacuerdo"
+    NEUTRAL = "NEUTRAL", "Ni de acuerdo / ni en desacuerdo"
+    AGREE = "AGREE", "Algo de acuerdo"
+    STRONGLY_AGREE = "STRONGLY_AGREE", "Totalmente de acuerdo"

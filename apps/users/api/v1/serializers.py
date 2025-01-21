@@ -14,7 +14,8 @@ class UserSerializer(UserDetailsSerializer):
         fields = tuple(User.REQUIRED_FIELDS) + (
             "id",
             "email",
-            "name",
+            "first_name",
+            "last_name",
             "last_login",
             "permissions",
             "is_staff",
