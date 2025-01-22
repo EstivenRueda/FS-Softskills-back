@@ -25,6 +25,7 @@ class LikertOptionSerializer(serializers.Serializer):
 
 class OptionSerializer(core_serializers.BaseModelSerializer):
     question = serializers.UUIDField(required=False, source="question.id")
+    display_name = serializers.SerializerMethodField()
 
     class Meta:
         model = models.Option
@@ -33,7 +34,11 @@ class OptionSerializer(core_serializers.BaseModelSerializer):
             "question",
             "option",
             "grade",
+            "display_name",
         )
+
+    def get_display_name(self, obj):
+        return obj.get_option_display()
 
 
 class QuestionSerializer(WritableNestedModelSerializer):
