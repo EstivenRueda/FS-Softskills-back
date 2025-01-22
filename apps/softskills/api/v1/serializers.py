@@ -1,3 +1,4 @@
+from drf_writable_nested import WritableNestedModelSerializer
 from rest_framework import serializers
 
 from apps.core import serializers as core_serializers
@@ -23,6 +24,8 @@ class LikertOptionSerializer(serializers.Serializer):
 
 
 class OptionSerializer(core_serializers.BaseModelSerializer):
+    question = serializers.UUIDField(required=False, source="question.id")
+
     class Meta:
         model = models.Option
         fields = (
@@ -33,7 +36,7 @@ class OptionSerializer(core_serializers.BaseModelSerializer):
         )
 
 
-class QuestionSerializer(core_serializers.BaseModelSerializer):
+class QuestionSerializer(WritableNestedModelSerializer):
     softskill_name = serializers.CharField(source="softskill.name", read_only=True)
     options = OptionSerializer(required=False, many=True)
 
