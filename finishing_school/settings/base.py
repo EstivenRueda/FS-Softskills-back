@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "django_filters",
     "django_extensions",
     "whitenoise.runserver_nostatic",
+    "apps.core",
     "apps.users",
     "apps.profiles",
     "apps.softskills",
@@ -182,6 +183,10 @@ NAME_MAX_LENGTH = 60
 DESCRIPTION_MAX_LENGTH = 255
 OBSERVATIONS_MAX_LENGTH = 255
 
+# Fixtures
+FIXTURE_DIRS = (
+    os.path.normpath(join(os.path.dirname(BASE_DIR), "production_fixtures")),
+)
 
 # Logging Configuration
 LOGGER_PREFIX = "finishing_school_back"

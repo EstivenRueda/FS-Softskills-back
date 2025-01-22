@@ -1,0 +1,202 @@
+[
+{
+    "model": "softskills.softskill",
+    "pk": "3d9d720e-d795-47d0-957a-221dd3da5501",
+    "fields": {
+        "is_active": true,
+        "name": "Creatividad",
+        "deleted": false,
+        "deleted_at": null,
+        "deleted_by": null,
+        "deletion_ip": null,
+        "created_at": "2025-01-22T19:53:42.601Z",
+        "created_by": null,
+        "creation_ip": null,
+        "last_updated_at": null,
+        "updated_by": null,
+        "update_ip": null,
+        "idx": 8,
+        "slug": "creatividad"
+    }
+},
+{
+    "model": "softskills.softskill",
+    "pk": "3e7957a2-0b6a-4957-b8cf-370632452632",
+    "fields": {
+        "is_active": true,
+        "name": "Autorregulación",
+        "deleted": false,
+        "deleted_at": null,
+        "deleted_by": null,
+        "deletion_ip": null,
+        "created_at": "2025-01-22T20:02:34.957Z",
+        "created_by": null,
+        "creation_ip": null,
+        "last_updated_at": null,
+        "updated_by": null,
+        "update_ip": null,
+        "idx": 10,
+        "slug": "autorregulacion"
+    }
+},
+{
+    "model": "softskills.softskill",
+    "pk": "4d887502-d1a8-4161-b01b-81561e3608e3",
+    "fields": {
+        "is_active": true,
+        "name": "Empatía",
+        "deleted": false,
+        "deleted_at": null,
+        "deleted_by": null,
+        "deletion_ip": null,
+        "created_at": "2025-01-22T18:19:27.688Z",
+        "created_by": null,
+        "creation_ip": null,
+        "last_updated_at": null,
+        "updated_by": null,
+        "update_ip": null,
+        "idx": 3,
+        "slug": "empatia"
+    }
+},
+{
+    "model": "softskills.softskill",
+    "pk": "7de81e73-1def-4b80-9b90-f6ad1921c75c",
+    "fields": {
+        "is_active": true,
+        "name": "Trabajo En Equipo",
+        "deleted": false,
+        "deleted_at": null,
+        "deleted_by": null,
+        "deletion_ip": null,
+        "created_at": "2025-01-22T18:26:19.856Z",
+        "created_by": null,
+        "creation_ip": null,
+        "last_updated_at": null,
+        "updated_by": null,
+        "update_ip": null,
+        "idx": 4,
+        "slug": "trabajo-en-equipo"
+    }
+},
+{
+    "model": "softskills.softskill",
+    "pk": "884a939b-b749-444a-8f98-600638675e72",
+    "fields": {
+        "is_active": true,
+        "name": "Pensamiento Crítico",
+        "deleted": false,
+        "deleted_at": null,
+        "deleted_by": null,
+        "deletion_ip": null,
+        "created_at": "2025-01-22T19:41:21.343Z",
+        "created_by": null,
+        "creation_ip": null,
+        "last_updated_at": null,
+        "updated_by": null,
+        "update_ip": null,
+        "idx": 7,
+        "slug": "pensamiento-critico"
+    }
+},
+{
+    "model": "softskills.softskill",
+    "pk": "98941b4e-716f-4449-8c87-c26f98b04028",
+    "fields": {
+        "is_active": true,
+        "name": "Liderazgo",
+        "deleted": false,
+        "deleted_at": null,
+        "deleted_by": null,
+        "deletion_ip": null,
+        "created_at": "2025-01-22T18:05:15.084Z",
+        "created_by": null,
+        "creation_ip": null,
+        "last_updated_at": null,
+        "updated_by": null,
+        "update_ip": null,
+        "idx": 2,
+        "slug": "liderazgo"
+    }
+},
+{
+    "model": "softskills.softskill",
+    "pk": "9d6b4f94-e456-48bd-a9ee-ed734e924392",
+    "fields": {
+        "is_active": true,
+        "name": "Inteligencia Emocional",
+        "deleted": false,
+        "deleted_at": null,
+        "deleted_by": null,
+        "deletion_ip": null,
+        "created_at": "2025-01-22T18:39:35.391Z",
+        "created_by": null,
+        "creation_ip": null,
+        "last_updated_at": null,
+        "updated_by": null,
+        "update_ip": null,
+        "idx": 6,
+        "slug": "inteligencia-emocional"
+    }
+},
+{
+    "model": "softskills.softskill",
+    "pk": "c7e4ac38-c683-42e6-90f9-445dc059c440",
+    "fields": {
+        "is_active": true,
+        "name": "Comunicación Efectiva",
+        "deleted": false,
+        "deleted_at": null,
+        "deleted_by": null,
+        "deletion_ip": null,
+        "created_at": "2025-01-21T14:09:56.880Z",
+        "created_by": null,
+        "creation_ip": null,
+        "last_updated_at": null,
+        "updated_by": null,
+        "update_ip": null,
+        "idx": 1,
+        "slug": "comunicacion-asertiva"
+    }
+},
+{
+    "model": "softskills.softskill",
+    "pk": "ce5bfc13-935c-4ee0-b01a-b8489a1aff01",
+    "fields": {
+        "is_active": true,
+        "name": "Motivación",
+        "deleted": false,
+        "deleted_at": null,
+        "deleted_by": null,
+        "deletion_ip": null,
+        "created_at": "2025-01-22T18:31:28.436Z",
+        "created_by": null,
+        "creation_ip": null,
+        "last_updated_at": null,
+        "updated_by": null,
+        "update_ip": null,
+        "idx": 5,
+        "slug": "motivacion"
+    }
+},
+{
+    "model": "softskills.softskill",
+    "pk": "f1e803da-67f9-400c-befd-80ff1a006667",
+    "fields": {
+        "is_active": true,
+        "name": "Gestión Del Tiempo",
+        "deleted": false,
+        "deleted_at": null,
+        "deleted_by": null,
+        "deletion_ip": null,
+        "created_at": "2025-01-22T19:58:18.068Z",
+        "created_by": null,
+        "creation_ip": null,
+        "last_updated_at": null,
+        "updated_by": null,
+        "update_ip": null,
+        "idx": 9,
+        "slug": "gestion-del-tiempo"
+    }
+}
+]
