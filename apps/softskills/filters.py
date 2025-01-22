@@ -21,6 +21,11 @@ class QuestionFilter(django_filters.FilterSet):
         lookup_expr="exact",
         label="softskill_id",
     )
+    softskill_slug = django_filters.CharFilter(
+        field_name="softskill__slug",
+        lookup_expr="exact",
+        label="softskill_slug",
+    )
     is_active = django_filters.BooleanFilter(
         field_name="is_active",
         lookup_expr="exact",
@@ -29,7 +34,11 @@ class QuestionFilter(django_filters.FilterSet):
 
     class Meta:
         model = models.Question
-        fields = ["softskill_id", "is_active"]
+        fields = [
+            "softskill_id",
+            "softskill_slug",
+            "is_active",
+        ]
 
 
 class OptionFilter(django_filters.FilterSet):
@@ -96,9 +105,15 @@ class SoftskillTrainingFilter(django_filters.FilterSet):
         lookup_expr="exact",
         label="softskill_id",
     )
+    softskill_slug = django_filters.CharFilter(
+        field_name="softskill__slug",
+        lookup_expr="exact",
+        label="softskill_slug",
+    )
 
     class Meta:
         model = models.SoftskillTraining
         fields = [
             "softskill_id",
+            "softskill_slug",
         ]
