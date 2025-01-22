@@ -22,9 +22,7 @@ class Command(BaseCommand):
         """
 
         production_fixtures = self.get_production_fixtures()
-        print(production_fixtures)
         for fixture in production_fixtures:
-            print(fixture)
             try:
                 call_command(
                     "loaddata",
