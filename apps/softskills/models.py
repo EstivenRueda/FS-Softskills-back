@@ -75,6 +75,7 @@ class Question(
         verbose_name = "Pregunta"
         verbose_name_plural = "Preguntas"
         ordering = [
+            "order",
             "-is_active",
             "-created_at",
         ]
