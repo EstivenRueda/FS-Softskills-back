@@ -44,15 +44,15 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 5. Instalar la base de datos PostgreSQL 
+### 5. Instalar la base de datos PostgreSQL
 https://www.postgresql.org/download/
 
 ###### Guía para Windows
 https://www.postgresqltutorial.com/postgresql-getting-started/install-postgresql/
 
-### 6. Crea la base de datos `softskills`
+### 6. Crea la base de datos `finishing_school`
 ```
-createdb softskills
+createdb finishing_school
 ```
 
 ### 7. Configura las variables de entorno
@@ -64,7 +64,17 @@ Copia el archivo `.env.local` a un nuevo archivo llamado `.env` y actualiza las 
 python manage.py migrate
 ```
 
-### 9. Recopila los archivos estáticos
+#### 9. Carga los fixtures
+```
+python manage.py load_production_fixtures
+```
+
+### 10. Recopila los archivos estáticos
 ```
 python manage.py collectstatic
+```
+
+#### 11. Corre el servidor local
+```
+python manage.py runserver
 ```
