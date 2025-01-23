@@ -73,7 +73,7 @@ class AnswerSerializer(core_serializers.BaseModelSerializer):
         )
 
 
-class QuestionnaireSerializer(core_serializers.BaseModelSerializer):
+class QuestionnaireSerializer(WritableNestedModelSerializer):
     answers = AnswerSerializer(required=False, many=True)
 
     class Meta:
