@@ -42,3 +42,9 @@ django-stubs==5.1.1
 
 # Permite que el logging estandar de python tenga salida de datos de log como un objeto json
 python-json-logger==2.0.7
+
+# Libreria para el manejo de archivos en S3
+boto3==1.36.4
+
+# Libreria para el manejo de backends personalizados para almacenamiento en Django
+django-storages==1.14.4

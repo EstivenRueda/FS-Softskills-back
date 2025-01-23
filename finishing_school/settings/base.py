@@ -15,6 +15,8 @@ from datetime import timedelta
 from os.path import join
 from pathlib import Path
 
+from apps.core.utils import strtobool
+
 # from datetime import timedelta
 
 
@@ -56,6 +58,7 @@ INSTALLED_APPS = [
     "django_filters",
     "django_extensions",
     "whitenoise.runserver_nostatic",
+    "storages",
     "apps.core",
     "apps.users",
     "apps.profiles",
@@ -306,3 +309,19 @@ SOCIALACCOUNT_PROVIDERS = {
         },
     }
 }
+
+USE_S3 = strtobool(os.environ.get("USE_S3", "false"))
+
+if USE_S3:
+    # AWS settings
+    AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
+    AWS_DEFAULT_ACL = None
+    AWS_S3_REGION_NAME = os.environ.get("AWS_S3_REGION_NAME")
+    AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+    AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
+    # S3 public media settings
+    PUBLIC_MEDIA_LOCATION = "media"
+    MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/"
+    DEFAULT_FILE_STORAGE = "apps.core.storage_backends.PublicMediaStorage"
