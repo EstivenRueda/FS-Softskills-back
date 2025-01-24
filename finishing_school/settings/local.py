@@ -14,8 +14,11 @@ ALLOWED_HOSTS = [
     "localhost",
 ]
 
-MEDIA_ROOT = os.getenv("MEDIA_ROOT")
-MEDIA_URL = "/media/"
+USE_S3 = strtobool(os.environ.get("USE_S3", "false"))
+
+if not USE_S3:
+    MEDIA_ROOT = os.getenv("MEDIA_ROOT")
+    MEDIA_URL = "/media/"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
