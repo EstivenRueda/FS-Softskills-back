@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     "apps.users",
     "apps.profiles",
     "apps.softskills",
+    "apps.files",
 ]
 
 MIDDLEWARE = [

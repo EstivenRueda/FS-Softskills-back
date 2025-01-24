@@ -15,6 +15,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path, re_path, reverse_lazy
 from django.views.generic.base import RedirectView
@@ -55,4 +57,10 @@ urlpatterns = urlpatterns + [
     path("api/v1/auth/google/", user_views.GoogleLogin.as_view(), name="google_login"),
     path("api/v1/profiles/", include("apps.profiles.urls")),
     path("api/v1/softskills/", include("apps.softskills.urls")),
+    path("api/v1/files/", include("apps.files.urls")),
 ]
+
+if settings.DEBUG:
+    urlpatterns = urlpatterns + static(
+        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
+    )

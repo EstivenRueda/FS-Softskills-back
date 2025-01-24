@@ -142,6 +142,7 @@ venv.bak/
 
 assets/
 static/
+media/
 
 # Spyder project settings
 .spyderproject

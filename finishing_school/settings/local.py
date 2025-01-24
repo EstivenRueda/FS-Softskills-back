@@ -14,6 +14,9 @@ ALLOWED_HOSTS = [
     "localhost",
 ]
 
+MEDIA_ROOT = os.getenv("MEDIA_ROOT")
+MEDIA_URL = "/media/"
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 STATIC_ROOT = os.path.normpath(join(os.path.dirname(BASE_DIR), "assets"))
