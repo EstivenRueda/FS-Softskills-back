@@ -1,12 +1,13 @@
+from django.db.models import Q
+from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
-from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import filters as drf_filters
 from rest_framework import views
 from rest_framework.response import Response
 
 from apps.core.views import BaseModelViewSet
-from apps.softskills import enums, filters
+from apps.softskills import enums, exceptions, filters
 from apps.softskills.api.v1 import serializers
 
 
@@ -351,3 +352,38 @@ class SoftskillTrainingViewSet(BaseModelViewSet):
     )
     def destroy(self, request, *args, **kwargs):
         return super().destroy(request, *args, **kwargs)
+
+
+@swagger_auto_schema(
+    operation_summary="API for list all softskill trainings of the user",
+    operation_description="This API is used to list all softskill trainings of the user",
+)
+class MySoftskillTrainingAPIView(views.APIView):
+    @swagger_auto_schema(
+        operation_summary="List all softskill trainings of the user",
+        operation_description="This returns a list of all softskill trainings objects",
+    )
+    def get(self, request, slug):
+        softskill = get_object_or_404(
+            serializers.SoftskillSerializer.Meta.model, slug=slug
+        )
+
+        current_questionnaire = (
+            serializers.QuestionnaireSerializer.Meta.model.objects.filter(
+                attendee=request.user.profile,
+                softskill=softskill,
+                is_current=True,
+            )
+        ).first()
+
+        if not current_questionnaire:
+            raise exceptions.CurrentQuestionnaireNotFoundError()
+
+        grade = current_questionnaire.grade
+        trainings = serializers.SoftskillTrainingSerializer.Meta.model.objects.filter(
+            Q(min_grade__lte=grade) & Q(max_grade__gte=grade),
+            softskill=softskill,
+        )
+
+        serializer = serializers.SoftskillTrainingSerializer(trainings, many=True)
+        return Response(serializer.data)

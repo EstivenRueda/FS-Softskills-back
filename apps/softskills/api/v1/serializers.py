@@ -102,7 +102,7 @@ class SoftskillTrainingSerializer(core_serializers.BaseModelSerializer):
             "title",
             "description",
             "link",
-            "min_range",
-            "max_range",
+            "min_grade",
+            "max_grade",
             "is_active",
         )

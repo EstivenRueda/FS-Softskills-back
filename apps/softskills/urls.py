@@ -19,4 +19,9 @@ urlpatterns = [
         views.LikertOptionAPIView.as_view(),
         name="likert_options",
     ),
+    path(
+        "my-softskill-trainings/<slug:slug>/",
+        views.MySoftskillTrainingAPIView.as_view(),
+        name="my_softskill_trainings",
+    ),
 ]
