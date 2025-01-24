@@ -110,10 +110,16 @@ class SoftskillTrainingFilter(django_filters.FilterSet):
         lookup_expr="exact",
         label="softskill_slug",
     )
+    is_active = django_filters.BooleanFilter(
+        field_name="is_active",
+        lookup_expr="exact",
+        label="is_active",
+    )
 
     class Meta:
         model = models.SoftskillTraining
         fields = [
             "softskill_id",
             "softskill_slug",
+            "is_active",
         ]
