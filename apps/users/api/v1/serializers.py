@@ -3,11 +3,14 @@ from dj_rest_auth.serializers import UserDetailsSerializer
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
+from apps.profiles.api.v1.serializers import ProfileSerializer
+
 User = get_user_model()
 
 
 class UserSerializer(UserDetailsSerializer):
     permissions = serializers.SerializerMethodField()
+    profile = ProfileSerializer()
 
     class Meta:
         model = User
@@ -19,6 +22,7 @@ class UserSerializer(UserDetailsSerializer):
             "last_login",
             "permissions",
             "is_staff",
+            "profile",
         )
         read_only_fields = (
             "id",

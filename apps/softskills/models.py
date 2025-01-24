@@ -152,11 +152,11 @@ class Questionnaire(
         null=True,
         default="",
     )
-    grade = models.FloatField(
+    grade = models.PositiveIntegerField(
         verbose_name="grade",
         blank=True,
         null=False,
-        default=0.0,
+        default=0,
     )
     history = HistoricalRecords()
 
@@ -208,11 +208,11 @@ class Answer(
         verbose_name="option",
         on_delete=models.PROTECT,
     )
-    grade = models.FloatField(
+    grade = models.PositiveIntegerField(
         verbose_name="grade",
         blank=True,
         null=False,
-        default=0.0,
+        default=0,
     )
     history = HistoricalRecords()
 
@@ -253,6 +253,14 @@ class SoftskillTraining(
     link = models.CharField(
         verbose_name="link",
         max_length=255,
+    )
+    min_range = models.PositiveIntegerField(
+        verbose_name="min range",
+        default=0,
+    )
+    max_range = models.PositiveIntegerField(
+        verbose_name="max range",
+        default=0,
     )
     history = HistoricalRecords()
 
