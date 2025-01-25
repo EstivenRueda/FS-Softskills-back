@@ -291,12 +291,12 @@ GOOGLE_OAUTH_CLIENT_SECRET = os.environ.get("GOOGLE_OAUTH_CLIENT_SECRET", "")
 GOOGLE_OAUTH_CALLBACK_URL = os.environ.get("GOOGLE_OAUTH_CALLBACK_URL", "")
 
 # django-allauth (social)
-# Authenticate if local account with this email address already exists
-SOCIALACCOUNT_EMAIL_AUTHENTICATION = True
 # Connect local account and social account if local account with that email address already exists
 SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = True
 SOCIALACCOUNT_PROVIDERS = {
     "google": {
+        # Authenticate if local account with this email address already exists
+        "EMAIL_AUTHENTICATION": True,
         "APPS": [
             {
                 "client_id": GOOGLE_OAUTH_CLIENT_ID,
@@ -307,6 +307,9 @@ SOCIALACCOUNT_PROVIDERS = {
         "SCOPE": ["profile", "email"],
         "AUTH_PARAMS": {
             "access_type": "online",
+        },
+        "OAUTH2_PARAMETERS": {
+            "hd": "correounivalle.edu.co",
         },
     }
 }
