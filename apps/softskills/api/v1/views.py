@@ -1,3 +1,5 @@
+import random
+
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
@@ -352,6 +354,63 @@ class SoftskillTrainingViewSet(BaseModelViewSet):
     )
     def destroy(self, request, *args, **kwargs):
         return super().destroy(request, *args, **kwargs)
+
+
+@swagger_auto_schema(
+    operation_summary="API for list all softskill questionnaires of the user",
+    operation_description="This API is used to list all softskill questionnaires of the user",
+)
+class MySoftskillQuestionnaireAPIView(views.APIView):
+    @swagger_auto_schema(
+        operation_summary="List all softskill questionnaires of the user",
+        operation_description="This returns a list of all softskill questionnaires objects",
+    )
+    def get(self, request):
+        softskills = serializers.SoftskillSerializer.Meta.model.objects.all()
+
+        consolidated_data = []
+        for softskill in softskills:
+            current_questionnaire = (
+                serializers.QuestionnaireSerializer.Meta.model.objects.filter(
+                    attendee=request.user.profile,
+                    softskill=softskill,
+                    is_current=True,
+                )
+            ).exists()
+
+            consolidated_data.append(
+                {
+                    "id": softskill.id,
+                    "name": softskill.name,
+                    "slug": softskill.slug,
+                    "has_current_questionnaire": current_questionnaire,
+                }
+            )
+
+        return Response(consolidated_data)
+
+
+@swagger_auto_schema(
+    operation_summary="API for list 10 random questions to the user",
+    operation_description="This API is used to list 10 random questions to the user",
+)
+class RandomQuestionAPIView(views.APIView):
+    @swagger_auto_schema(
+        operation_summary="List 10 random questions to the user",
+        operation_description="This returns a list of 10 random questions objects",
+    )
+    def get(self, request, slug):
+        softskill = get_object_or_404(
+            serializers.SoftskillSerializer.Meta.model, slug=slug
+        )
+
+        questions = serializers.QuestionSerializer.Meta.model.objects.filter(
+            softskill=softskill, is_active=True
+        )
+
+        random_questions = random.sample(list(questions), min(len(questions), 10))
+        serializer = serializers.QuestionSerializer(random_questions, many=True)
+        return Response(serializer.data)
 
 
 @swagger_auto_schema(

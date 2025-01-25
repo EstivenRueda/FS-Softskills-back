@@ -20,7 +20,17 @@ urlpatterns = [
         name="likert_options",
     ),
     path(
-        "my-softskill-trainings/<slug:slug>/",
+        "my-softskill-questionnaires/",
+        views.MySoftskillQuestionnaireAPIView.as_view(),
+        name="my_softskill_questionnaires",
+    ),
+    path(
+        "<slug:slug>/random-questions/",
+        views.RandomQuestionAPIView.as_view(),
+        name="random_questions",
+    ),
+    path(
+        "<slug:slug>/my-softskill-trainings/",
         views.MySoftskillTrainingAPIView.as_view(),
         name="my_softskill_trainings",
     ),

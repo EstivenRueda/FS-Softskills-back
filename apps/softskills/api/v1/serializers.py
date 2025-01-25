@@ -59,8 +59,9 @@ class QuestionSerializer(WritableNestedModelSerializer):
 
 
 class AnswerSerializer(core_serializers.BaseModelSerializer):
-    question = QuestionSerializer(read_only=True)
-    option = OptionSerializer(read_only=True)
+    questionnaire = serializers.UUIDField(required=False, source="questionnaire.id")
+    question_obj = QuestionSerializer(read_only=True)
+    option_obj = OptionSerializer(read_only=True)
 
     class Meta:
         model = models.Answer
@@ -68,13 +69,16 @@ class AnswerSerializer(core_serializers.BaseModelSerializer):
             "id",
             "questionnaire",
             "question",
+            "question_obj",
             "option",
+            "option_obj",
             "grade",
         )
 
 
 class QuestionnaireSerializer(WritableNestedModelSerializer):
     answers = AnswerSerializer(required=False, many=True)
+    attendee = serializers.UUIDField(required=False, source="attendee.id")
 
     class Meta:
         model = models.Questionnaire

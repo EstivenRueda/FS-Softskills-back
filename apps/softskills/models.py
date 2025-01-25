@@ -1,3 +1,4 @@
+import crum
 from django.conf import settings
 from django.db import models
 from django.utils.text import slugify
@@ -6,6 +7,7 @@ from simple_history.models import HistoricalRecords
 from apps.core import behaviors as bhs
 from apps.core import models as core_models
 from apps.profiles.models import Profile
+from apps.users.models import User
 
 from . import enums
 
@@ -38,7 +40,7 @@ class Softskill(
         verbose_name_plural = "Habilidades Blandas"
         ordering = [
             "-is_active",
-            "-created_at",
+            "created_at",
         ]
 
     def save(self, *args, **kwargs):
@@ -168,10 +170,17 @@ class Questionnaire(
         ]
 
     def save(self, *args, **kwargs):
+        current_user = crum.get_current_user()
         if self._state.adding:
             Questionnaire.objects.filter(
                 attendee=self.attendee, is_current=True
             ).update(is_current=False, is_active=False)
+
+            if isinstance(current_user, User):
+                self.attendee = current_user.profile
+
+        total_grade = self.answers.aggregate(total=models.Sum("grade"))["total"] or 0
+        self.grade = total_grade
         super().save(*args, **kwargs)
 
 
@@ -219,6 +228,10 @@ class Answer(
         verbose_name = "answer"
         verbose_name_plural = "answers"
         ordering = ["-created_at"]
+
+    def save(self, *args, **kwargs):
+        self.grade = self.option.grade
+        return super().save(*args, **kwargs)
 
 
 class SoftskillTraining(
