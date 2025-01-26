@@ -414,6 +414,27 @@ class RandomQuestionAPIView(views.APIView):
 
 
 @swagger_auto_schema(
+    operation_summary="API for list all questionnaires of the user",
+    operation_description="This API is used to list all questionnaires of the user",
+)
+class MyResultAPIView(views.APIView):
+    @swagger_auto_schema(
+        operation_summary="List all questionnaires of the user",
+        operation_description="This returns a list of all questionnaires objects",
+    )
+    def get(self, request):
+        questionnaires = (
+            serializers.QuestionnaireSerializer.Meta.model.objects.filter(
+                attendee=request.user.profile,
+                is_current=True,
+            )
+        ).all()
+
+        serializer = serializers.QuestionnaireSerializer(questionnaires, many=True)
+        return Response(serializer.data)
+
+
+@swagger_auto_schema(
     operation_summary="API for list all softskill trainings of the user",
     operation_description="This API is used to list all softskill trainings of the user",
 )

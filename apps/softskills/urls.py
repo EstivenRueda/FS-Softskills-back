@@ -30,6 +30,11 @@ urlpatterns = [
         name="random_questions",
     ),
     path(
+        "my-results/",
+        views.MyResultAPIView.as_view(),
+        name="my_results",
+    ),
+    path(
         "<slug:slug>/my-softskill-trainings/",
         views.MySoftskillTrainingAPIView.as_view(),
         name="my_softskill_trainings",
