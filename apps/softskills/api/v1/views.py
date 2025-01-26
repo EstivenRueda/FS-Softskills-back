@@ -204,8 +204,12 @@ class OptionViewSet(BaseModelViewSet):
 class QuestionnaireViewSet(BaseModelViewSet):
     queryset = serializers.QuestionnaireSerializer.Meta.model.objects.all()
     serializer_class = serializers.QuestionnaireSerializer
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, drf_filters.SearchFilter]
     filterset_class = filters.QuestionnaireFilter
+    search_fields = [
+        "softskill__name",
+        "attendee__display_name",
+    ]
 
     @swagger_auto_schema(
         operation_summary="List all questionnaires",
@@ -234,6 +238,8 @@ class QuestionnaireViewSet(BaseModelViewSet):
         operation_description="Update a questionnaire with the ID",
     )
     def update(self, request, *args, **kwargs):
+        # We only want to update without the answers
+        self.serializer_class = serializers.QuestionnaireResultsSerializer
         return super().update(request, *args, **kwargs)
 
     @swagger_auto_schema(
