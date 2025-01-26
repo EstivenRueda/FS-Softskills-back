@@ -93,6 +93,20 @@ class QuestionnaireSerializer(WritableNestedModelSerializer):
             "answers",
         )
 
+    def create(self, validated_data):
+        questionnaire = super().create(validated_data)
+
+        # Update the questionnaire grade
+        questionnaire.save()
+        return questionnaire
+
+    def update(self, instance, validated_data):
+        questionnaire = super().update(instance, validated_data)
+
+        # Update the questionnaire grade
+        questionnaire.save()
+        return questionnaire
+
 
 class SoftskillTrainingSerializer(core_serializers.BaseModelSerializer):
     softskill_name = serializers.CharField(source="softskill.name", read_only=True)

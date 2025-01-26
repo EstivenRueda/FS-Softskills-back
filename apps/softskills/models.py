@@ -172,12 +172,12 @@ class Questionnaire(
     def save(self, *args, **kwargs):
         current_user = crum.get_current_user()
         if self._state.adding:
-            Questionnaire.objects.filter(
-                attendee=self.attendee, is_current=True
-            ).update(is_current=False, is_active=False)
-
             if isinstance(current_user, User):
                 self.attendee = current_user.profile
+
+            Questionnaire.objects.filter(
+                attendee=self.attendee, softskill=self.softskill, is_current=True
+            ).update(is_current=False, is_active=False)
 
         total_grade = self.answers.aggregate(total=models.Sum("grade"))["total"] or 0
         self.grade = total_grade
@@ -204,6 +204,7 @@ class Answer(
     questionnaire = models.ForeignKey(
         Questionnaire,
         verbose_name="questionnaire",
+        related_name="answers",
         on_delete=models.PROTECT,
     )
     question = models.ForeignKey(
