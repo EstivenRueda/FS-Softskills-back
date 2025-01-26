@@ -108,6 +108,23 @@ class QuestionnaireSerializer(WritableNestedModelSerializer):
         return questionnaire
 
 
+class QuestionnaireResultsSerializer(WritableNestedModelSerializer):
+    softskill_name = serializers.CharField(source="softskill.name", read_only=True)
+
+    class Meta:
+        model = models.Questionnaire
+        fields = (
+            "id",
+            "softskill",
+            "softskill_name",
+            "attendee",
+            "is_current",
+            "observations",
+            "grade",
+            "is_active",
+        )
+
+
 class SoftskillTrainingSerializer(core_serializers.BaseModelSerializer):
     softskill_name = serializers.CharField(source="softskill.name", read_only=True)
 

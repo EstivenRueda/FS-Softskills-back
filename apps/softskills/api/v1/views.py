@@ -212,6 +212,7 @@ class QuestionnaireViewSet(BaseModelViewSet):
         operation_description="This returns a list of all questionnaire objects",
     )
     def list(self, request, *args, **kwargs):
+        self.serializer_class = serializers.QuestionnaireResultsSerializer
         return super().list(request, *args, **kwargs)
 
     @swagger_auto_schema(
@@ -430,7 +431,9 @@ class MyResultAPIView(views.APIView):
             )
         ).all()
 
-        serializer = serializers.QuestionnaireSerializer(questionnaires, many=True)
+        serializer = serializers.QuestionnaireResultsSerializer(
+            questionnaires, many=True
+        )
         return Response(serializer.data)
 
 
