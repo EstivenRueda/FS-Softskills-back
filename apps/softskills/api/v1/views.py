@@ -470,7 +470,8 @@ class MySoftskillTrainingAPIView(views.APIView):
 
         grade = current_questionnaire.grade
         trainings = serializers.SoftskillTrainingSerializer.Meta.model.objects.filter(
-            Q(min_grade__lte=grade) & Q(max_grade__gte=grade),
+            # Q(min_grade__lte=grade) & Q(max_grade__gte=grade),
+            Q(max_grade__gte=grade),
             softskill=softskill,
         )
 
