@@ -9,4 +9,9 @@ router.register(r"profiles", views.ProfileViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
+    path(
+        "profile-types/",
+        views.ProfileTypesAPIView.as_view(),
+        name="profile_types",
+    ),
 ]

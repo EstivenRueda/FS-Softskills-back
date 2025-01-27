@@ -55,6 +55,7 @@ urlpatterns = urlpatterns + [
     re_path(r"^api/v1/auth/accounts/", include("allauth.urls")),
     path("api/v1/auth/registration/", include("dj_rest_auth.registration.urls")),
     path("api/v1/auth/google/", user_views.GoogleLogin.as_view(), name="google_login"),
+    path("api/v1/users/", include("apps.users.urls")),
     path("api/v1/profiles/", include("apps.profiles.urls")),
     path("api/v1/softskills/", include("apps.softskills.urls")),
     path("api/v1/files/", include("apps.files.urls")),

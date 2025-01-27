@@ -1,9 +1,11 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import filters as drf_filters
+from rest_framework import views
+from rest_framework.response import Response
 
 from apps.core.views import BaseModelViewSet
-from apps.profiles import filters
+from apps.profiles import enums, filters
 from apps.profiles.api.v1 import serializers
 
 
@@ -63,3 +65,25 @@ class ProfileViewSet(BaseModelViewSet):
     )
     def destroy(self, request, *args, **kwargs):
         return super().destroy(request, *args, **kwargs)
+
+
+@swagger_auto_schema(
+    operation_summary="API for list all profile types",
+    operation_description="This API is used to list all profile types",
+)
+class ProfileTypesAPIView(views.APIView):
+    @swagger_auto_schema(
+        operation_summary="List all profile types",
+        operation_description="This returns a list of all profile type objects",
+    )
+    def get(self, request):
+        profile_type_choices = enums.ProfileType.choices
+        profile_type_serializer = serializers.ProfileTypeSerializer(
+            [
+                {"value": value, "display_name": display_name}
+                for value, display_name in profile_type_choices
+            ],
+            many=True,
+        )
+
+        return Response(profile_type_serializer.data)

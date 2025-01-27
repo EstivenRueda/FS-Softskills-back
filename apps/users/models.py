@@ -64,7 +64,7 @@ class User(AbstractUser):
 
         Checks if the current user instance has an associated profile. If not, it creates a new profile.
         The display name for the profile is set to the user's name if available, otherwise to the user's email.
-        The profile type is set to 'PERSON'.
+        The profile type is set to 'STUDENT'.
         """
         from apps.profiles import enums as pro_enums
         from apps.profiles.models import Profile
