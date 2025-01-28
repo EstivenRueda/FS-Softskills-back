@@ -201,6 +201,62 @@ class OptionViewSet(BaseModelViewSet):
     operation_summary="API for CRUD a questionnaire",
     operation_description="This API is used for CRUD a questionnaire",
 )
+class QuestionnaireGroupViewSet(BaseModelViewSet):
+    queryset = serializers.QuestionnaireGroupSerializer.Meta.model.objects.all()
+    serializer_class = serializers.QuestionnaireGroupSerializer
+    filter_backends = [DjangoFilterBackend, drf_filters.SearchFilter]
+    filterset_class = filters.QuestionnaireGroupFilter
+    search_fields = [
+        "attendee__display_name",
+    ]
+
+    @swagger_auto_schema(
+        operation_summary="List all questionnaires",
+        operation_description="This returns a list of all questionnaire objects",
+    )
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_summary="Create a questionnaire",
+        operation_description="This returns a created questionnaire object",
+    )
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_summary="Get a questionnaire",
+        operation_description="This returns a questionnaire object",
+    )
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_summary="Update a questionnaire",
+        operation_description="Update a questionnaire with the ID",
+    )
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_summary="Partial update a questionnaire",
+        operation_description="This returns partial updated the questionnaire object",
+    )
+    def partial_update(self, request, *args, **kwargs):
+        return super().partial_update(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_summary="Delete a questionnaire",
+        operation_description="This returns a deleted questionnaire object",
+    )
+    def destroy(self, request, *args, **kwargs):
+        return super().destroy(request, *args, **kwargs)
+
+
+@swagger_auto_schema(
+    operation_summary="API for CRUD a questionnaire",
+    operation_description="This API is used for CRUD a questionnaire",
+)
 class QuestionnaireViewSet(BaseModelViewSet):
     queryset = serializers.QuestionnaireSerializer.Meta.model.objects.all()
     serializer_class = serializers.QuestionnaireSerializer
@@ -364,6 +420,27 @@ class SoftskillTrainingViewSet(BaseModelViewSet):
 
 
 @swagger_auto_schema(
+    operation_summary="API to get current questionnaire group of the user",
+    operation_description="This API is used to get the current questionnaire group of the user",
+)
+class MyQuestionnaireGroupAPIView(views.APIView):
+    @swagger_auto_schema(
+        operation_summary="Get the current questionnaire group of the user",
+        operation_description="This returns a questionnaire group object",
+    )
+    def get(self, request):
+        questionnaire_group = get_object_or_404(
+            serializers.QuestionnaireGroupSerializer.Meta.model,
+            attendee=request.user.profile,
+            is_current=True,
+            is_active=True,
+        )
+
+        serializer = serializers.QuestionnaireGroupSerializer(questionnaire_group)
+        return Response(serializer.data)
+
+
+@swagger_auto_schema(
     operation_summary="API for list all softskill questionnaires of the user",
     operation_description="This API is used to list all softskill questionnaires of the user",
 )
@@ -375,22 +452,35 @@ class MySoftskillQuestionnaireAPIView(views.APIView):
     def get(self, request):
         softskills = serializers.SoftskillSerializer.Meta.model.objects.all()
 
+        current_questionnaire_group = (
+            serializers.QuestionnaireGroupSerializer.Meta.model.objects.filter(
+                attendee=request.user.profile,
+                is_current=True,
+                is_active=True,
+            ).first()
+        )
+
         consolidated_data = []
         for softskill in softskills:
-            current_questionnaire = (
-                serializers.QuestionnaireSerializer.Meta.model.objects.filter(
-                    attendee=request.user.profile,
-                    softskill=softskill,
-                    is_current=True,
-                )
-            ).exists()
+            if current_questionnaire_group is not None:
+                has_current_questionnaire = (
+                    serializers.QuestionnaireSerializer.Meta.model.objects.filter(
+                        questionnaire_group=current_questionnaire_group,
+                        attendee=request.user.profile,
+                        softskill=softskill,
+                        is_current=True,
+                        is_active=True,
+                    )
+                ).exists()
+            else:
+                has_current_questionnaire = False
 
             consolidated_data.append(
                 {
                     "id": softskill.id,
                     "name": softskill.name,
                     "slug": softskill.slug,
-                    "has_current_questionnaire": current_questionnaire,
+                    "has_current_questionnaire": has_current_questionnaire,
                 }
             )
 

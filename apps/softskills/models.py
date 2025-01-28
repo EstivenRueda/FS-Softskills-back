@@ -113,13 +113,51 @@ class Option(
     )
 
 
+class QuestionnaireGroup(
+    core_models.BaseModel,
+    bhs.TimeStampable,
+    bhs.Activable,
+):
+    attendee = models.ForeignKey(
+        Profile,
+        related_name="questionnaire_groups",
+        verbose_name="attendee",
+        on_delete=models.PROTECT,
+    )
+    is_current = models.BooleanField(
+        verbose_name="is current",
+        default=True,
+    )
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name = "Grupo de cuestionarios"
+        verbose_name_plural = "Grupos de cuestionarios"
+        ordering = [
+            "-is_active",
+            "-created_at",
+        ]
+
+    def save(self, *args, **kwargs):
+        current_user = crum.get_current_user()
+        if self._state.adding:
+            if isinstance(current_user, User):
+                self.attendee = current_user.profile
+
+            QuestionnaireGroup.objects.filter(
+                attendee=self.attendee, is_current=True
+            ).update(is_current=False, is_active=False)
+
+        super().save(*args, **kwargs)
+
+
 class Questionnaire(
     core_models.BaseModel,
     bhs.TimeStampable,
     bhs.Activable,
 ):
     """
-    This model represents a question.
+    This model represents a questionnaire.
     It inherits from BaseModel, TimeStampable and Activable
     providing core functionalities.
 
@@ -131,6 +169,15 @@ class Questionnaire(
         grade: Final grade of the questionnaire.
         history: A field to enable tracking historical changes.
     """
+
+    questionnaire_group = models.ForeignKey(
+        QuestionnaireGroup,
+        related_name="questionnaires",
+        verbose_name="questionnaire group",
+        blank=True,
+        null=True,
+        on_delete=models.PROTECT,
+    )
 
     softskill = models.ForeignKey(
         Softskill,

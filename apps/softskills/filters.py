@@ -53,6 +53,32 @@ class OptionFilter(django_filters.FilterSet):
         fields = ["question_id"]
 
 
+class QuestionnaireGroupFilter(django_filters.FilterSet):
+    attendee_id = django_filters.CharFilter(
+        field_name="attendee",
+        lookup_expr="exact",
+        label="attendee_id",
+    )
+    is_current = django_filters.BooleanFilter(
+        field_name="is_current",
+        lookup_expr="exact",
+        label="is_current",
+    )
+    is_active = django_filters.BooleanFilter(
+        field_name="is_active",
+        lookup_expr="exact",
+        label="is_active",
+    )
+
+    class Meta:
+        model = models.QuestionnaireGroup
+        fields = [
+            "attendee_id",
+            "is_current",
+            "is_active",
+        ]
+
+
 class QuestionnaireFilter(django_filters.FilterSet):
     softskill_id = django_filters.CharFilter(
         field_name="softskill",

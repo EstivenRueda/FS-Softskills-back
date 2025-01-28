@@ -8,6 +8,7 @@ router = DefaultRouter()
 router.register(r"softskills", views.SoftskillViewSet)
 router.register(r"questions", views.QuestionViewSet)
 router.register(r"options", views.OptionViewSet)
+router.register(r"questionnaire-groups", views.QuestionnaireGroupViewSet)
 router.register(r"questionnaires", views.QuestionnaireViewSet)
 router.register(r"answers", views.AnswerViewSet)
 router.register(r"softskill-trainings", views.SoftskillTrainingViewSet)
@@ -18,6 +19,11 @@ urlpatterns = [
         "likert-options/",
         views.LikertOptionAPIView.as_view(),
         name="likert_options",
+    ),
+    path(
+        "my-questionnaire-group/",
+        views.MyQuestionnaireGroupAPIView.as_view(),
+        name="my_questionnaire_group",
     ),
     path(
         "my-softskill-questionnaires/",

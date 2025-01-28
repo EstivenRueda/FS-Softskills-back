@@ -76,6 +76,23 @@ class AnswerSerializer(core_serializers.BaseModelSerializer):
         )
 
 
+class QuestionnaireGroupSerializer(core_serializers.BaseModelSerializer):
+    attendee_name = serializers.CharField(
+        source="attendee.display_name", read_only=True
+    )
+    attendee = serializers.UUIDField(required=False, source="attendee_id")
+
+    class Meta:
+        model = models.QuestionnaireGroup
+        fields = (
+            "id",
+            "attendee",
+            "attendee_name",
+            "is_current",
+            "is_active",
+        )
+
+
 class QuestionnaireSerializer(WritableNestedModelSerializer):
     softskill_name = serializers.CharField(source="softskill.name", read_only=True)
     softskill_slug = serializers.CharField(source="softskill.slug", read_only=True)
@@ -83,12 +100,16 @@ class QuestionnaireSerializer(WritableNestedModelSerializer):
         source="attendee.display_name", read_only=True
     )
     answers = AnswerSerializer(required=False, many=True)
-    attendee = serializers.UUIDField(required=False, source="attendee.id")
+    attendee = serializers.UUIDField(required=False, source="attendee_id")
+    questionnaire_group = serializers.UUIDField(
+        required=True, source="questionnaire_group_id"
+    )
 
     class Meta:
         model = models.Questionnaire
         fields = (
             "id",
+            "questionnaire_group",
             "softskill",
             "softskill_name",
             "softskill_slug",
@@ -127,6 +148,7 @@ class QuestionnaireResultsSerializer(WritableNestedModelSerializer):
         model = models.Questionnaire
         fields = (
             "id",
+            "questionnaire_group",
             "softskill",
             "softskill_name",
             "softskill_slug",
