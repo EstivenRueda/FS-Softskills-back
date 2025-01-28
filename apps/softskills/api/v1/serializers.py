@@ -81,6 +81,7 @@ class QuestionnaireGroupSerializer(core_serializers.BaseModelSerializer):
         source="attendee.display_name", read_only=True
     )
     attendee = serializers.UUIDField(required=False, source="attendee_id")
+    is_complete = serializers.SerializerMethodField()
 
     class Meta:
         model = models.QuestionnaireGroup
@@ -90,7 +91,22 @@ class QuestionnaireGroupSerializer(core_serializers.BaseModelSerializer):
             "attendee_name",
             "is_current",
             "is_active",
+            "is_complete",
+            "created_at",
         )
+
+    def get_is_complete(self, obj):
+        softskills = models.Softskill.objects.filter(is_active=True).all()
+        questionnaires_completed = []
+        for softskill in softskills:
+            questionnaires_completed.append(
+                models.Questionnaire.objects.filter(
+                    questionnaire_group=obj,
+                    softskill=softskill,
+                    is_active=True,
+                ).exists()
+            )
+        return all(questionnaires_completed)
 
 
 class QuestionnaireSerializer(WritableNestedModelSerializer):
@@ -158,6 +174,23 @@ class QuestionnaireResultsSerializer(WritableNestedModelSerializer):
             "observations",
             "grade",
             "is_active",
+        )
+
+
+class QuestionnaireGroupConsolidatedSerializer(QuestionnaireGroupSerializer):
+    questionnaires = QuestionnaireResultsSerializer(many=True)
+
+    class Meta:
+        model = models.QuestionnaireGroup
+        fields = (
+            "id",
+            "attendee",
+            "attendee_name",
+            "is_current",
+            "is_active",
+            "is_complete",
+            "created_at",
+            "questionnaires",
         )
 
 

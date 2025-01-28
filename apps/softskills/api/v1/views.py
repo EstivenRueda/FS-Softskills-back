@@ -450,7 +450,9 @@ class MySoftskillQuestionnaireAPIView(views.APIView):
         operation_description="This returns a list of all softskill questionnaires objects",
     )
     def get(self, request):
-        softskills = serializers.SoftskillSerializer.Meta.model.objects.all()
+        softskills = serializers.SoftskillSerializer.Meta.model.objects.filter(
+            is_active=True
+        ).all()
 
         current_questionnaire_group = (
             serializers.QuestionnaireGroupSerializer.Meta.model.objects.filter(
@@ -520,15 +522,14 @@ class MyResultAPIView(views.APIView):
         operation_description="This returns a list of all questionnaires objects",
     )
     def get(self, request):
-        questionnaires = (
-            serializers.QuestionnaireSerializer.Meta.model.objects.filter(
+        questionnaire_groups = (
+            serializers.QuestionnaireGroupConsolidatedSerializer.Meta.model.objects.filter(
                 attendee=request.user.profile,
-                is_current=True,
             )
         ).all()
 
-        serializer = serializers.QuestionnaireResultsSerializer(
-            questionnaires, many=True
+        serializer = serializers.QuestionnaireGroupConsolidatedSerializer(
+            questionnaire_groups, many=True
         )
         return Response(serializer.data)
 

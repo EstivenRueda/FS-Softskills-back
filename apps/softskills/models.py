@@ -146,7 +146,7 @@ class QuestionnaireGroup(
 
             QuestionnaireGroup.objects.filter(
                 attendee=self.attendee, is_current=True
-            ).update(is_current=False, is_active=False)
+            ).update(is_current=False)
 
         super().save(*args, **kwargs)
 
@@ -224,7 +224,7 @@ class Questionnaire(
 
             Questionnaire.objects.filter(
                 attendee=self.attendee, softskill=self.softskill, is_current=True
-            ).update(is_current=False, is_active=False)
+            ).update(is_current=False)
 
         total_grade = self.answers.aggregate(total=models.Sum("grade"))["total"] or 0
         self.grade = total_grade
