@@ -48,3 +48,18 @@ boto3==1.36.4
 
 # Libreria para el manejo de backends personalizados para almacenamiento en Django
 django-storages==1.14.4
+
+# Library for creating test objects
+factory-boy==3.3.0
+
+# Python package that generates fake data
+Faker==19.3.0
+
+# Testing framework for Python
+pytest==7.4.0
+
+# Plugin for testing Django apps
+pytest-django==4.5.2
+
+# Extension of Pytest for creation of test objects
+pytest-factoryboy==2.5.1
