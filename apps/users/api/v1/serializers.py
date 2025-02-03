@@ -18,6 +18,7 @@ class UserSerializer(UserDetailsSerializer):
         fields = tuple(User.REQUIRED_FIELDS) + (
             "id",
             "email",
+            "username",
             "first_name",
             "last_name",
             "last_login",
@@ -55,6 +56,7 @@ class UserFormSerializer(WritableNestedModelSerializer):
         fields = tuple(User.REQUIRED_FIELDS) + (
             "id",
             "email",
+            "username",
             "first_name",
             "last_name",
             "name",
