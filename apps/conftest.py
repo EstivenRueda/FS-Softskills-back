@@ -9,6 +9,12 @@ from apps.users.tests import factories as use_factories
 register(use_factories.UserFactory)
 
 
+@pytest.fixture(scope="session")
+def django_db_setup():
+    # Allow session-level database usage
+    pass
+
+
 @pytest.fixture
 def jwt_token():
     user, _ = User.objects.get_or_create(emal="testuser@gmail.com")

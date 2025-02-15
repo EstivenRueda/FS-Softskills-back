@@ -14,6 +14,7 @@ class UserFactory(factory.django.DjangoModelFactory):
         "apps.profiles.tests.factories.ProfileFactory",
         factory_related_name="user",
     )
+    username = factory.Faker("user_name", locale="es_CO")
 
     class Meta:
         model = mdl.User

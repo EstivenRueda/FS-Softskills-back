@@ -178,7 +178,6 @@ class Questionnaire(
         null=True,
         on_delete=models.PROTECT,
     )
-
     softskill = models.ForeignKey(
         Softskill,
         verbose_name="softskill",
